@@ -1,0 +1,28 @@
+{
+    "name": "playwright-as-browser",
+    "version": "0.0.1",
+    "private": true,
+    "description": "For webinar",
+    "license": "GPL-3.0",
+    "author": "B.Medoshin",
+    "scripts": {
+        "playwright": "playwright",
+        "dprint": "dprint",
+        "start": "playwright test -c ./playwright.config.ts",
+        "lint-staged": "lint-staged"
+    },
+    "devDependencies": {
+        "@playwright/test": "~1.60.0",
+        "@types/node": "^24.0.0",
+        "typescript": "6.0.3",
+        "vite-node": "6.0.0",
+        "lint-staged": "17.0.8",
+        "wait-on": "9.0.10"
+    },
+    "engines": {
+        "node": ">=24"
+    },
+    "lint-staged": {
+        "*.(ts,js)": "dprint"
+    }
+}
