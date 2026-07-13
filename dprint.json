@@ -2,7 +2,8 @@
     "typescript": {
         "indentWidth": 4,
         "useTabs": false,
-        "quoteStyle": "preferSingle"
+        "quoteStyle": "preferSingle",
+        "semiColons": "always"
     },
     "json": {
         "indentWidth": 4
@@ -10,12 +11,9 @@
     "jsonc": {
         "indentWidth": 4
     },
-    "markdown": {
-    },
-    "toml": {
-    },
-    "biome": {
-    },
+    "markdown": {},
+    "toml": {},
+    "biome": {},
     "excludes": [
         "**/node_modules",
         "**/*-lock.json"

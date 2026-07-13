@@ -6,15 +6,18 @@
     "license": "GPL-3.0",
     "author": "B.Medoshin",
     "scripts": {
+        "runByAppend": "vite-node ./scenarios/run-by-append.ts",
         "playwright": "playwright",
         "dprint": "dprint",
         "start": "playwright test -c ./playwright.config.ts",
+        "runBrowser": "node -e \"import('./scenarios/run-browser.ts').then(m => m.runBrowser())\"",
         "lint-staged": "lint-staged"
     },
     "devDependencies": {
-        "@playwright/test": "~1.60.0",
+        "@playwright/test": "~1.61.1",
         "@types/node": "^24.0.0",
         "typescript": "6.0.3",
+        "dprint": "0.55.1",
         "vite-node": "6.0.0",
         "lint-staged": "17.0.8",
         "wait-on": "9.0.10"
