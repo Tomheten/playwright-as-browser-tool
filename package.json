@@ -10,7 +10,7 @@
         "playwright": "playwright",
         "dprint": "dprint",
         "start": "playwright test -c ./playwright.config.ts",
-        "runBrowser": "node -e \"import('./scenarios/run-browser.ts').then(m => m.runBrowser())\"",
+        "runBrowser": "vite-node ./scenarios/run-chromium",
         "lint-staged": "lint-staged"
     },
     "devDependencies": {
