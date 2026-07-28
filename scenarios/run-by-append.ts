@@ -38,7 +38,4 @@ async function run() {
 }
 
 run();
-async function emptyProfileDir(testProfilePath: string) {
-    const chromiumProfileDirs = await readdir(testProfilePath);
-    await Promise.all(chromiumProfileDirs.map(n => rm(join(testProfilePath, n), { recursive: true, force: true })));
-}
+

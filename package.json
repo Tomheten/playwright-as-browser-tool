@@ -12,7 +12,9 @@
         "start": "playwright test -c ./playwright.config.ts",
         "runBrowser": "vite-node ./scenarios/run-chromium.ts",
         "simpleRun": "vite-node ./scenarios/simple-run.ts",
-        "lint-staged": "lint-staged"
+        "codeOnPage": "vite-node ./scenarios/run-code-on-page.ts",
+        "lint-staged": "lint-staged",
+        "code-gen": "vite-node ./scenarios/codegen-mode.ts"
     },
     "devDependencies": {
         "@playwright/test": "~1.61.1",

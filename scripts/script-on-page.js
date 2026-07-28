@@ -1,0 +1,1 @@
+console.warn('from script-on-page');
