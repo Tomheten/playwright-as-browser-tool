@@ -10,7 +10,8 @@
         "playwright": "playwright",
         "dprint": "dprint",
         "start": "playwright test -c ./playwright.config.ts",
-        "runBrowser": "vite-node ./scenarios/run-chromium",
+        "runBrowser": "vite-node ./scenarios/run-chromium.ts",
+        "simpleRun": "vite-node ./scenarios/simple-run.ts",
         "lint-staged": "lint-staged"
     },
     "devDependencies": {

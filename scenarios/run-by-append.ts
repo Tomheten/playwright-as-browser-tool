@@ -29,7 +29,8 @@ async function run() {
     await waitOn({ resources: [`http://localhost:${debuggingPort}`], timeout: 10_000 });
 
     const browser = await chromium.connectOverCDP('http://localhost:9222');
-    const pages = browser.contexts()[0].pages();
+    const firstCtx = browser.contexts()[0];
+    const pages = firstCtx.pages();
     const targetPage = pages[0];
     await targetPage.pause();
     // await targetPage.locator('.chr-header-v3__hamburger-button').click();
