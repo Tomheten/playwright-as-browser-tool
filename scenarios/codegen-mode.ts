@@ -20,7 +20,6 @@ async function run() {
 
     const browser = await chromium.connectOverCDP('http://localhost:9222');
     const firstCtx = browser.contexts()[0];
-
     const pages = firstCtx.pages();
     const targetPage = pages[0];
 
