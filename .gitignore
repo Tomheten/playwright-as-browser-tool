@@ -3,5 +3,4 @@ node_modules
 allure-report
 allure-results
 test-results
-.vscode
 playwright-report

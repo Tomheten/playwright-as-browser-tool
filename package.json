@@ -13,7 +13,8 @@
         "runBrowser": "vite-node ./scenarios/run-chromium.ts",
         "simpleRun": "vite-node ./scenarios/simple-run.ts",
         "codeOnPage": "vite-node ./scenarios/run-code-on-page.ts",
-        "record": "vite-node ./scenarios/record.ts", "lint-staged": "lint-staged",
+        "record": "vite-node ./scenarios/record.ts",
+        "lint-staged": "lint-staged",
         "code-gen": "vite-node ./scenarios/codegen-mode.ts"
     },
     "devDependencies": {

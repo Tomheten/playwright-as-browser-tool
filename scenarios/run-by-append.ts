@@ -33,8 +33,6 @@ async function run() {
     const pages = firstCtx.pages();
     const targetPage = pages[0];
     await targetPage.pause();
-    // await targetPage.locator('.chr-header-v3__hamburger-button').click();
-    // await targetPage.locator('.chr-header-v3__hamburger-button').click();
 }
 
 run();

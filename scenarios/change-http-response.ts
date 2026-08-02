@@ -6,14 +6,66 @@ import { join } from 'node:path';
 
 run();
 
-const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
-const browser = await chromium.launch({ executablePath: chromiumPath, headless: false });
 async function run() {
-
+    const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
+    const browser = await chromium.launch({ executablePath: chromiumPath, headless: false });
     const page = await browser.newPage();
-    // page.route()
+    // работают текстовые маски - page.route('**/*')
+    page.route(
+        (url) => {
+            return true;
+        },
+        async (route, request) => {
+            const queryParams = new URL(request.url()).searchParams;
+            const wordForHints = 'react';
+            if (queryParams.get('part') === wordForHints) {
+                const response = await route.fetch();
+                const data = await response.json();
+                // yandex search hints
+                data[1] = fakeResponseHints;
+                await route.fulfill({
+                    response,
+                    body: JSON.stringify(data),
+                });
+            } else {
+                route.continue();
+            }
+        },
+    );
 
-    // ???? простые  примеры для 'Request' 'Response'
+    page.on('request', (request) => {
+        console.log('>>>>>>> request', request.url());
+    });
+
+    page.on('response', (response) => {
+        console.log('<<<<<<< response', response.ok());
+    });
 
     await page.goto('http://yandex.ru');
+
+    // 
+    // await page.waitForRequest();
+    // await page.waitForResponse();
 }
+
+const fakeResponseHints = [
+    [
+        '',
+        'VueJs намного лучше',
+        {
+            'sg_weight': 0,
+            'log': ['fulltext', 'none', 'b'],
+            'hl': [[0, 1]],
+        },
+    ],
+    [
+        '',
+        'use VueJs instead',
+        {
+            'pers': 1,
+            'sg_weight': 0,
+            'log': ['fulltext', 'history', 'pers'],
+            'hl': [[0, 1]],
+        },
+    ],
+];
