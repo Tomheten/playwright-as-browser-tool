@@ -1,10 +1,10 @@
 import { join } from 'node:path';
 import { runBrowser } from '../scripts/run-browser';
 
-const testProfilePath = join('C:', 'browser-profile-tmp');
-const chromiumPath = join('C:', 'chrome-w', 'chrome.exe');
+const testProfilePath = join('C:', 'tmp_user_dir');
+
+const chromiumPath = join('C:', 'chrome-win', 'chrome.exe');
 const resource = 'https://google.com';
-// const resource = 'https://sbermarket.ru';
 
 runBrowser({
     chromiumPath,

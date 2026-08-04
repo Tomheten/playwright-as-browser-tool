@@ -7,9 +7,10 @@ import { join } from 'node:path';
 run();
 
 async function run() {
-    const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
+    const chromiumPath = join('C:', 'chrome-win', 'chrome.exe');
     const browser = await chromium.launch({ executablePath: chromiumPath, headless: false });
     const page = await browser.newPage();
+
     // работают текстовые маски - page.route('**/*')
     page.route(
         (url) => {
@@ -17,15 +18,15 @@ async function run() {
         },
         async (route, request) => {
             const queryParams = new URL(request.url()).searchParams;
+            /** вводим в поиск `react` и получаем подмененный ответ */
             const wordForHints = 'react';
             if (queryParams.get('part') === wordForHints) {
-                const response = await route.fetch();
-                const data = await response.json();
-                // yandex search hints
-                data[1] = fakeResponseHints;
+                /** можно послать запрос на сервер и подменить уже ответ,
+                 * но могут проблемы с серверными проверками запроса
+                 */
+                // const response = await route.fetch();
                 await route.fulfill({
-                    response,
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(fakeResponseHints),
                 });
             } else {
                 route.continue();
@@ -49,13 +50,15 @@ async function run() {
 }
 
 const fakeResponseHints = [
+    'react',
+    [
     [
         '',
         'VueJs намного лучше',
         {
             'sg_weight': 0,
             'log': ['fulltext', 'none', 'b'],
-            'hl': [[0, 1]],
+            'hl': [[0, 10]],
         },
     ],
     [
@@ -65,7 +68,15 @@ const fakeResponseHints = [
             'pers': 1,
             'sg_weight': 0,
             'log': ['fulltext', 'history', 'pers'],
-            'hl': [[0, 1]],
+            'hl': [[0, 3]],
         },
     ],
+  
+    ],
+          {
+        "r": 10174,
+        "pers_options": 1,
+        "log": "sgtype:BBBBBBBBBB",
+        "continue": "tion"
+    }
 ];

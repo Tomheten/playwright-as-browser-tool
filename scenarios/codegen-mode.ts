@@ -4,7 +4,7 @@ import waitOn from 'wait-on';
 import { runBrowser } from '../scripts/run-browser';
 
 const testProfilePath = join('C:', 'browser-profile-tmp');
-const chromiumPath = join('C:', 'chrome-w', 'chrome.exe');
+const chromiumPath = join('C:', 'chrome-win', 'chrome.exe');
 const dirname = import.meta.dirname;
 const resource = 'file:///' + join(dirname, '..', 'index.html');
 // const resource = 'https://google.com';
@@ -23,6 +23,8 @@ async function run() {
     const pages = firstCtx.pages();
     const targetPage = pages[0];
 
+
+    /** можно записать сценарий и потом воспроизвести на нужной странице*/
     await targetPage.pause();
 
     /** for setting `dataTestIdAttribute` need to create a new page by Playwright */

@@ -6,7 +6,7 @@ run();
 
 // getting jpeg, png, pdf, video, har
 async function run() {
-    const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
+    const chromiumPath = join('C:', 'chrome', 'chrome.exe');
     const browser = await chromium.launch({
         executablePath: chromiumPath,
         headless: false,
@@ -63,8 +63,8 @@ async function run() {
         const filePath = join(dirname, fileName);
 
         // с конкретного элемента
-        // await page.locator().screenshot()
-        await page.screenshot({ path: filePath });
+        await page.locator('//').screenshot()
+        // await page.screenshot({ path: filePath });
 
         return { saved: fileName };
     });
@@ -78,6 +78,7 @@ async function run() {
             format: 'A4', // 'Letter' | 'A4' | 'A3' или { width, height }
             printBackground: true,
             margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
+            
         });
 
         return { saved: name, path: filePath };
@@ -137,11 +138,13 @@ async function run() {
     //     sources: false,
     //     snapshots: false,
     // });
+
     await page.getByTestId('simple-log').click();
-    await page.getByTestId('simple-input').pressSequentially('asd', { delay: 1000 });
+    await page.getByTestId('simple-input').pressSequentially('asdasdvv', { delay: 1000 });
     await page.getByTestId('simple-log').click();
+
     // await context.tracing.stop({ path: './ttt.zip' });
 
-    await context.close();
-    await browser.close();
+    // await context.close();
+    // await browser.close();
 }

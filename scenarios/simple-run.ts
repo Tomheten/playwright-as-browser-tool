@@ -1,21 +1,23 @@
 import { chromium } from '@playwright/test';
 import { join } from 'node:path';
+import { emptyProfileDir } from '../scripts/empty-profile-dir';
 
 run();
 
 async function run() {
-    const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
-    const testProfilePath = join('C:', 'browser-profile-tmp');
+    const chromiumPath = join('C:', 'chrome', 'chrome.exe');
+    const testProfilePath = join('C:', 'tmp_user_dir');
+    await emptyProfileDir(testProfilePath);
 
-    const browser = await chromium.launchPersistentContext(testProfilePath, {
-    // const browser = await chromium.launch({
-        /** ignoring flags which set Playwright*/
+    // можно сохранять профиль
+    // const browser = await chromium.launchPersistentContext(testProfilePath, {
+    const browser = await chromium.launch({
+        /** игнорирует флаги браузера выставленные Playwright*/
         ignoreDefaultArgs: false,
-        // [
+        // args: [
         //     /** this flag is responsible for the launch with `navigator.webdriver = true` */
-        //     // '--remote-debugging-pipe',
+        //     '--remote-debugging-pipe',
         // ],
-        args: [],
         /** path to a concrete browser*/
         executablePath: chromiumPath,
         /** show browser */

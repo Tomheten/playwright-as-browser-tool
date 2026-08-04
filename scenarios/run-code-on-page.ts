@@ -7,7 +7,7 @@ const dirname = import.meta.dirname;
 run();
 
 async function run() {
-    const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
+    const chromiumPath = join('C:', 'chrome-win', 'chrome.exe');
     const browser = await chromium.launch({
         args: ['--auto-open-devtools-for-tabs'],
         executablePath: chromiumPath,
@@ -19,8 +19,8 @@ async function run() {
     // work by `connectOverCDP`
     ctx.addInitScript({ path: join(dirname, '..', 'scripts', 'script-on-page.js') });
     ctx.exposeFunction('playwrightRpcScreenshot', (data) => {
-        console.log('--------------------', data);
-        writeFileSync('temp.txt', data);
+        console.log('----------rpc----------', data);
+        writeFileSync('rpc-temp.txt', data);
     });
 
     const page = await ctx.newPage();
@@ -38,7 +38,13 @@ async function run() {
     });
 
     await page.goto('http://google.com');
-}
 
-/** event list
- */
+    const greeting = 'hello from pw'
+    const r = await page.evaluate((opts) => {
+        console.log('passed from pw: ', opts.greeting)
+        return new Date().toString();
+    }, { greeting });
+
+    writeFileSync('temp.txt', r.toString())
+    console.log('--------- from evaluate: ', r);
+}

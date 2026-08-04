@@ -8,7 +8,7 @@ async function run() {
     const dirname = import.meta.dirname;
     const debuggingPort = 9222;
     // const testProfilePath = join('C:', 'browser-profile-tmp');
-    // const chromiumPath = join('C:', 'chrome-w', 'chrome.exe');
+    // const chromiumPath = join('C:', 'chrome', 'chrome.exe');
     // // const resource = 'https://accounts.google.com';
     // const resource = 'https://sbermarket.ru';
 

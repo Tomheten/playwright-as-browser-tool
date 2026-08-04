@@ -6,7 +6,7 @@ const dirname = import.meta.dirname;
 run();
 
 async function run() {
-    const chromiumPath = join('C:', 'chrome-win140', 'chrome.exe');
+    const chromiumPath = join('C:', 'chrome', 'chrome.exe');
 
     const browser = await chromium.launch({
         executablePath: chromiumPath,
