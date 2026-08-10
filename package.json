@@ -16,6 +16,7 @@
         "record": "vite-node ./scenarios/record.ts",
         "vuejs": "vite-node ./scripts/vue-js.ts",
         "change-response": "vite-node ./scenarios/change-http-response.ts",
+        "env-info": "vite-node ./scenarios/get-env-info.ts",
         "lint-staged": "lint-staged",
         "cdp": "vite-node ./scenarios/cdp-functionality.ts",
         "code-gen": "vite-node ./scenarios/codegen-mode.ts"
