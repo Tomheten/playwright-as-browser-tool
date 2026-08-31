@@ -63,11 +63,22 @@ async function run() {
         const filePath = join(dirname, fileName);
 
         // с конкретного элемента
-        await page.locator('//').screenshot()
+        await page.locator('//').screenshot();
         // await page.screenshot({ path: filePath });
 
         return { saved: fileName };
     });
+
+    // await page.exposeFunction('makeSnapshotRaw', async () => {
+    //     const fileName = `snapshot_${performance.now()}.html`;
+    //     const filePath = join(dirname, fileName);
+
+    //     const cdp = await context.newCDPSession(page);
+    //     // снимок DOM 
+    //     const { data } = await cdp.send('Page.captureSnapshot');
+    //     await writeFile(filePath, data);
+    //     return { saved: fileName };
+    // });
 
     await page.exposeFunction('makePdf', async (fileName?: string) => {
         const name = fileName ?? `page_${performance.now()}.pdf`;
@@ -78,7 +89,7 @@ async function run() {
             format: 'A4', // 'Letter' | 'A4' | 'A3' или { width, height }
             printBackground: true,
             margin: { top: '20mm', bottom: '20mm', left: '15mm', right: '15mm' },
-            
+
         });
 
         return { saved: name, path: filePath };
@@ -98,6 +109,19 @@ async function run() {
         // page.routeFromHAR('', { notFound: 'abort' })
     });
 
+    await page.exposeFunction('clickAction', async (event: null | string, click = false) => {
+        const locator = event ? `css=[data-test-id="${event}"]` : 'css=html';
+        if (click) {
+            await page.evaluate(() => {
+                (window as any).pwClicked = true;
+            });
+            await page.click(locator);
+        } else {
+            // имитация действия для записи в trace
+            await page.locator(locator).evaluate(() => void 0);
+        }
+    });
+
     await page.exposeFunction('stopHar', async () => {
         if (!currentHarRecording) {
             return;
@@ -106,12 +130,35 @@ async function run() {
         currentHarRecording = null;
     });
 
+
     let isTraceRecording: boolean = false;
     await page.exposeFunction('startTrace', async () => {
         if (isTraceRecording) {
             throw new Error('Trace already started — call stopTrace() first');
         }
+
         isTraceRecording = true;
+        // перехватываем клики и выполняем на pw стороне, таким образом получаем снэпшоты
+        // await page.evaluate(() => {
+        //     window.addEventListener('click',
+        //         async (ev) => {
+        //             if ((window as any).pwClicked) {
+        //                 (window as any).pwClicked = false;
+        //                 return;
+        //             }
+
+        //             const target = ev.target as HTMLElement;
+        //             const clickByPw = true;
+        //             if (clickByPw) {
+        //                 ev.preventDefault();
+        //                 ev.stopImmediatePropagation();
+        //             }
+
+        //             (window as any).clickAction(target.getAttribute('data-test-id'), clickByPw);
+        //         },
+        //         { capture: true }
+        //     );
+        // });
         await context.tracing.start({
             screenshots: true,
             // полноценное DOM дерево в моменты, записывается только для момента действий через `page`
@@ -132,16 +179,19 @@ async function run() {
 
     selectors.setTestIdAttribute('data-test-id');
     await page.goto('file:///' + join(dirname, '..', 'index.html'));
-    // посмотреть полноценный трейс можно только при записи дейстивиями через `page`
+    // посмотреть полноценный трейс можно только при записи действиями через `page` или перехватывая действия 
+    // и делая имитацию actions на playwright стороне
     // await context.tracing.start({
     //     screenshots: true,
     //     sources: false,
     //     snapshots: false,
     // });
 
-    await page.getByTestId('simple-log').click();
-    await page.getByTestId('simple-input').pressSequentially('asdasdvv', { delay: 1000 });
-    await page.getByTestId('simple-log').click();
+    // await page.getByTestId('simple-log').click();
+    // await page.getByTestId('simple-input').pressSequentially('asdasdvv', { delay: 1000 });
+    // await page.getByTestId('simple-log').click();
+
+
 
     // await context.tracing.stop({ path: './ttt.zip' });
 
