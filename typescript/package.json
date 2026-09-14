@@ -14,6 +14,7 @@
         "simpleRun": "vite-node ./scenarios/simple-run.ts",
         "codeOnPage": "vite-node ./scenarios/run-code-on-page.ts",
         "record": "vite-node ./scenarios/record.ts",
+        "record-other": "tsx ./scenarios/record-other.ts",
         "vuejs": "vite-node ./scripts/vue-js.ts",
         "change-response": "vite-node ./scenarios/change-http-response.ts",
         "env-info": "vite-node ./scenarios/get-env-info.ts",
@@ -28,7 +29,8 @@
         "dprint": "0.55.1",
         "vite-node": "6.0.0",
         "lint-staged": "17.0.8",
-        "wait-on": "9.0.10"
+        "wait-on": "9.0.10",
+        "tsx": "4.23.13"
     },
     "engines": {
         "node": ">=24"
