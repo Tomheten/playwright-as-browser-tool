@@ -83,7 +83,10 @@ def run():
         input("Input Enter...")
         # browser.close() при connect_over_cdp НЕ убивает процесс браузера,
         # а только отключается от него. Сам Chromium останется висеть.
+        cdp.detach()
+        context.close()
         browser.close()
+
 
 if __name__ == "__main__":
     run()
