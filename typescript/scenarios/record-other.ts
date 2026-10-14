@@ -15,7 +15,6 @@ async function run() {
 		slowMo: 1000,
 
 	});
-
 	// ctx.tracing.stop({ path: join(`trace-${Temporal.PlainTime.toString()}.zip`) });
 
 	const context = await browser.newContext({

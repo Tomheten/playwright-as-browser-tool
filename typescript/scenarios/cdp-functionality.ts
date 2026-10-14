@@ -21,11 +21,8 @@ async function run() {
     await cdp.send('DOMSnapshot.enable');
     const snapshot = await cdp.send('DOMSnapshot.captureSnapshot', { computedStyles: [] });
     // console.log('------- snapshot', snapshot);
-    debugger;
     const browserInfo = await browserCdp.send('Browser.getVersion');
     console.log('----------- info', browserInfo);
-
-
 
     await page.pause();
     await browser.close();
