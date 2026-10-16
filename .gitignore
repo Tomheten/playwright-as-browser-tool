@@ -4,3 +4,5 @@ allure-report
 allure-results
 test-results
 playwright-report
+artifacts
+python/__pycache__/**

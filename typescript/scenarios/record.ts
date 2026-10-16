@@ -6,7 +6,7 @@ run();
 
 // getting jpeg, png, pdf, video, har
 async function run() {
-    const chromiumPath = join('C:', 'chrome', 'chrome.exe');
+    const chromiumPath = '/home/Tomheten/chrome-linux64/chrome';
     const browser = await chromium.launch({
         executablePath: chromiumPath,
         headless: false,
@@ -178,7 +178,7 @@ async function run() {
     });
 
     selectors.setTestIdAttribute('data-test-id');
-    await page.goto('file:///' + join(dirname, '..', 'index.html'));
+    await page.goto('file:///' + join(dirname, '..', '..', 'index.html'));
     // посмотреть полноценный трейс можно только при записи действиями через `page` или перехватывая действия 
     // и делая имитацию actions на playwright стороне
     // await context.tracing.start({

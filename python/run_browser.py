@@ -18,8 +18,6 @@ class BrowserOptions:
 def run_browser(opts: BrowserOptions) -> subprocess.Popen:
     """
     Запускает Chromium как отдельный процесс с включённым CDP-портом.
-
-    Зачем это нужно (для вебинара):
     - Подключение к уже запущенному браузеру через connect_over_cdp.
     - Использование постоянного профиля (куки, localStorage, расширения).
     - Возможность отладки тестов в реальном браузере.
@@ -28,6 +26,7 @@ def run_browser(opts: BrowserOptions) -> subprocess.Popen:
         opts.chromium_path,
         f"--user-data-dir={opts.test_profile_path}",
         "--remote-debugging-port=9222",
+        # "--auto-open-devtools-for-tabs",
         *opts.args,
     ]
 
