@@ -8,7 +8,7 @@ ARTIFACTS_DIR.mkdir(exist_ok=True)
 
 
 async def run(playwright: Playwright):
-    chromium_path = "/home/Tomheten/chrome-linux64/chrome"
+    chromium_path = "C:/chrome-win/chrome.exe"
     browser = await playwright.chromium.launch(
         executable_path=chromium_path,
         headless=False,
@@ -150,28 +150,28 @@ async def run(playwright: Playwright):
         is_trace_recording["value"] = True
 
         # Перехватываем клики и выполняем на pw стороне, таким образом получаем снэпшоты
-        # await page.evaluate("""
-        #     () => {
-        #         window.addEventListener('click',
-        #             async (ev) => {
-        #                 if (window.pwClicked) {
-        #                     window.pwClicked = false;
-        #                     return;
-        #                 }
+        await page.evaluate("""
+            () => {
+                window.addEventListener('click',
+                    async (ev) => {
+                        if (window.pwClicked) {
+                            window.pwClicked = false;
+                            return;
+                        }
         
-        #                 const target = ev.target;
-        #                 const clickByPw = true;
-        #                 if (clickByPw) {
-        #                     ev.preventDefault();
-        #                     ev.stopImmediatePropagation();
-        #                 }
+                        const target = ev.target;
+                        const clickByPw = true;
+                        if (clickByPw) {
+                            ev.preventDefault();
+                            ev.stopImmediatePropagation();
+                        }
         
-        #                 window.clickAction(target.getAttribute('data-test-id'), clickByPw);
-        #             },
-        #             { capture: true }
-        #         );
-        #     }
-        # """)
+                        window.clickAction(target.getAttribute('data-test-id'), clickByPw);
+                    },
+                    { capture: true }
+                );
+            }
+        """)
 
         await context.tracing.start(
             screenshots=True,

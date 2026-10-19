@@ -6,7 +6,7 @@ run();
 
 // getting jpeg, png, pdf, video, har
 async function run() {
-    const chromiumPath = '/home/Tomheten/chrome-linux64/chrome';
+    const chromiumPath = 'C:/chrome-win/chrome.exe';
     const browser = await chromium.launch({
         executablePath: chromiumPath,
         headless: false,

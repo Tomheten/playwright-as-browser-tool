@@ -5,8 +5,8 @@ from run_browser import BrowserOptions, run_browser, wait_for_cdp
 
 
 def run():
-    chromium_path = r"/home/Tomheten/chrome-linux64/chrome"
-    test_profile_path = r"/home/Tomheten/tmp_user_dir"
+    chromium_path = r"C:/chrome-win/chrome.exe"
+    test_profile_path = r"C:/tmp_user_dir"
 
     # URL для открытия при запуске
     resource = "https://google.com"
