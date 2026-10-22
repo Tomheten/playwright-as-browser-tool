@@ -29,10 +29,10 @@ async def run(playwright: Playwright):
     page = target_page
 
     fake_response_hints = [
-        "react",
+        "selenium",
         [
-            ["", "VueJs намного лучше", {"sg_weight": 0, "log": ["fulltext", "none", "b"], "hl": [[0, 10]]}],
-            ["", "use VueJs instead", {"pers": 1, "sg_weight": 0, "log": ["fulltext", "history", "pers"], "hl": [[0, 3]]}],
+            ["", "Выбрось старье!", {"sg_weight": 0, "log": ["fulltext", "none", "b"], "hl": [[0, 10]]}],
+            ["", "Будь современным!..", {"pers": 1, "sg_weight": 0, "log": ["fulltext", "history", "pers"], "hl": [[0, 3]]}],
         ],
         {"r": 10174, "pers_options": 1, "log": "sgtype:BBBBBBBBBB", "continue": "tion"},
     ]
@@ -43,7 +43,7 @@ async def run(playwright: Playwright):
         parsed_url = urlparse(url)
         query_params = parse_qs(parsed_url.query)
 
-        if query_params.get("part") == ["react"]:
+        if query_params.get("part") == ["selenium"]:
             await asyncio.sleep(7) 
             await route.fulfill(
                 body=json.dumps(fake_response_hints),
@@ -70,7 +70,7 @@ async def run(playwright: Playwright):
     )
     input_search = page.get_by_role("combobox")
     await input_search.click()
-    await input_search.press_sequentially("react", delay=650)
+    await input_search.press_sequentially("selenium", delay=650)
     await page.wait_for_timeout(3000)
     await screencast.dispose()
 

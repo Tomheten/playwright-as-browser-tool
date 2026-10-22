@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { execSync, spawn } from 'node:child_process';
 import { platform } from 'node:os';
 
 export function runBrowser(opts: {
@@ -18,3 +18,6 @@ export function runBrowser(opts: {
     }
 }
 
+const pathToChrome = 'C:/chrome/chrome.exe'
+const testUserData = 'C:/test-user-data'
+execSync(`${pathToChrome} --remote-debugging-port=9222 --user-data-dir=${testUserData}`)

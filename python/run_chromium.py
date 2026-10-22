@@ -1,25 +1,22 @@
-import shutil
-from pathlib import Path
-
-from run_browser import BrowserOptions, run_browser, wait_for_cdp
+import subprocess
 
 
 def run():
     chromium_path = r"C:/chrome-win/chrome.exe"
     test_profile_path = r"C:/tmp_user_dir"
-
     # URL для открытия при запуске
     resource = "https://google.com"
 
-    # Создаём конфигурацию запуска
-    opts = BrowserOptions(
-        chromium_path=str(chromium_path),
-        test_profile_path=str(test_profile_path),
-        resource=resource,
+    subprocess.Popen(
+        [
+            chromium_path,
+            "--remote-debugging-port=9222",
+            f"--user-data-dir={test_profile_path}",
+            # "--auto-open-devtools-for-tabs",
+            # "--ignore",
+            # resource,
+        ]
     )
-
-    # Запускаем браузер
-    proc = run_browser(opts)
     print("Браузер запущен. CDP доступен на порту 9222.")
     input("Input Enter...")
 
